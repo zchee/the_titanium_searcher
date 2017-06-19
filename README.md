@@ -24,6 +24,14 @@ Benchmark target
 - [BurntSushi/ripgrep (`rg`)][rg]
 - [svent/sift][sift]
 
+TODO
+----
+- [ ] Use SIMD instructions
+- [ ] Support multi encodings
+  - [ ] `IOS-2022-JP`
+  - [ ] `EUC-JP`
+  - [ ] `Shift_JIS`
+
 
 
 [gnu-grep]: https://www.gnu.org/software/grep/
