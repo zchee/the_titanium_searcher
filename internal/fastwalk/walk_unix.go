@@ -6,7 +6,7 @@
 
 // This code copied from golang.org/x/tools/imports.
 
-package ti
+package fastwalk
 
 import (
 	"bytes"

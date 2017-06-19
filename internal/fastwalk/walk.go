@@ -14,7 +14,7 @@
 //
 // See golang.org/issue/16399
 
-package ti
+package fastwalk
 
 import (
 	"errors"
