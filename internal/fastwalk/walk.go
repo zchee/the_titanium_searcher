@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // This code copied from golang.org/x/tools/imports.
-//
+
 // A faster implementation of filepath.Walk.
 //
 // filepath.Walk's design necessarily calls os.Lstat on each file,
@@ -41,7 +41,7 @@ var traverseLink = errors.New("traverse symlink, assuming target is a directory"
 //   * fastWalk can follow symlinks if walkFn returns the traverseLink
 //     sentinel error. It is the walkFn's responsibility to prevent
 //     fastWalk from going into symlink cycles.
-func fastWalk(root string, walkFn func(path string, typ os.FileMode) error) error {
+func Walk(root string, walkFn func(path string, typ os.FileMode) error) error {
 	// TODO(bradfitz): make numWorkers configurable? We used a
 	// minimum of 4 to give the kernel more info about multiple
 	// things we want, in hopes its I/O scheduling can take
