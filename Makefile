@@ -5,7 +5,7 @@ CMD_NAME = ti
 GO_BUILD_FLAGS ?= -v -x
 
 ifneq ($(TI_DEBUG),)
-GO_BUILD_FLAGS += -tags=debug
+GO_BUILD_FLAGS += -race -tags=debug
 endif
 
 build: bin/ti
