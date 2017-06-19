@@ -8,6 +8,8 @@ ifneq ($(TI_DEBUG),)
 GO_BUILD_FLAGS += -race -tags=debug
 endif
 
+PROF_MODE ?=
+
 build: bin/ti
 
 bin:
@@ -23,9 +25,21 @@ uninstall:
 	rm -f $(shell which $(CMD_NAME))
 
 test/run: build
-	./bin/ti package .
+	time ./bin/ti package ..
+
+prof:
+	rm -f *.pprof
+	./bin/ti --profile $(PROF_MODE) package ..
+	go tool pprof $(PROF_FLAGS) ./bin/ti *.pprof
+
+prof/cpu: PROF_MODE = cpu
+prof/cpu: PROF_FLAGS = -top -cum
+prof/cpu: prof
+prof/mem: PROF_MODE = mem
+prof/mem: PROF_FLAGS = -top -cum --alloc_space
+prof/mem: prof
 
 clean:
-	rm -rf ./bin
+	rm -rf ./bin *.pprof
 
 .PHONY: build install uninstall test/run clean
