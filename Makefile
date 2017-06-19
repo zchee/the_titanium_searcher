@@ -22,7 +22,10 @@ install: $(GO_SRCS)
 uninstall:
 	rm -f $(shell which $(CMD_NAME))
 
+test/run: build
+	./bin/ti package .
+
 clean:
 	rm -rf ./bin
 
-.PHONY: build install uninstall clean
+.PHONY: build install uninstall test/run clean
