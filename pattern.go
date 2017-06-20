@@ -5,7 +5,7 @@
 package ti
 
 type pattern struct {
-	bytes []byte
-	re    *regexp
-	opt   Option
+	pattern []byte
+	re      *regexp
+	opt     Option
 }
