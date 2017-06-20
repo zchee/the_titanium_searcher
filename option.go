@@ -6,17 +6,34 @@ package ti
 
 type Option struct {
 	Version bool
+	Profile string
 
-	Color            *color
-	Group            bool
-	Null             bool
-	Column           bool
-	LineNumber       bool
-	Context          *lineContext
+	Output OutputOption
+	Search SearchOption
+}
+
+type OutputOption struct {
+	EnableColor bool
+	Color       struct {
+		Match  string
+		Number string
+		Path   string
+	}
+	Group   bool
+	Null    bool
+	Column  bool
+	Number  bool
+	Context struct {
+		After   int
+		Before  int
+		Context int
+	}
 	FilesWithMatches bool
 	Count            bool
 	Encode           string
+}
 
+type SearchOption struct {
 	Regexp           bool
 	IgnoreCase       bool
 	SmartCase        bool
@@ -33,22 +50,9 @@ type Option struct {
 	Hidden           bool
 }
 
-type color struct {
-	Enable     bool
-	LineNumber string
-	Path       string
-	Match      string
-}
-
-type lineContext struct {
-	After   int
-	Before  int
-	Context int
-}
-
 func NewOption() *Option {
 	return &Option{
-		Color:   new(color),
-		Context: new(lineContext),
+		Output: OutputOption{},
+		Search: SearchOption{},
 	}
 }
