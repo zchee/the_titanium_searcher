@@ -4,8 +4,8 @@
 
 package ti
 
-type pattern struct {
-	bytes []byte
-	re    *regexp
-	opt   Option
-}
+import (
+	regexppkg "regexp"
+)
+
+type regexp regexppkg.Regexp
