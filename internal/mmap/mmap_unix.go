@@ -76,6 +76,24 @@ func (r *ReaderAt) ReadAt(p []byte, off int64) (int, error) {
 	return n, nil
 }
 
+// Map maps an entire file into memory.
+func Map(f *os.File, offset int64, length int, prot int, flags int) (*ReaderAt, error) {
+	data, err := syscall.Mmap(int(f.Fd()), offset, length, prot, flags)
+	if err != nil {
+		return nil, err
+	}
+	r := &ReaderAt{data}
+	if debug {
+		var p *byte
+		if len(data) != 0 {
+			p = &data[0]
+		}
+		println("mmap", r, p)
+	}
+	runtime.SetFinalizer(r, (*ReaderAt).Close)
+	return r, nil
+}
+
 // Open memory-maps the named file for reading.
 func Open(filename string) (*ReaderAt, error) {
 	f, err := os.Open(filename)
@@ -99,18 +117,5 @@ func Open(filename string) (*ReaderAt, error) {
 		return nil, fmt.Errorf("mmap: file %q is too large", filename)
 	}
 
-	data, err := syscall.Mmap(int(f.Fd()), 0, int(size), syscall.PROT_READ, syscall.MAP_SHARED)
-	if err != nil {
-		return nil, err
-	}
-	r := &ReaderAt{data}
-	if debug {
-		var p *byte
-		if len(data) != 0 {
-			p = &data[0]
-		}
-		println("mmap", r, p)
-	}
-	runtime.SetFinalizer(r, (*ReaderAt).Close)
-	return r, nil
+	return Map(f, 0, int(size), syscall.PROT_READ, syscall.MAP_SHARED)
 }

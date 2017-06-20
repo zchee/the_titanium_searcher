@@ -75,6 +75,32 @@ func (r *ReaderAt) ReadAt(p []byte, off int64) (int, error) {
 	return n, nil
 }
 
+// Map maps an entire file into memory.
+func Map(f *os.File, offset int64, length int, prot int, flags int) (*ReaderAt, error) {
+	low, high := uint32(length), uint32(length>>32)
+	fmap, err := syscall.CreateFileMapping(syscall.Handle(f.Fd()), nil, syscall.PAGE_READONLY, high, low, nil)
+	if err != nil {
+		return nil, err
+	}
+	defer syscall.CloseHandle(fmap)
+	ptr, err := syscall.MapViewOfFile(fmap, syscall.FILE_MAP_READ, 0, 0, uintptr(length))
+	if err != nil {
+		return nil, err
+	}
+	data := (*[1 << 30]byte)(unsafe.Pointer(ptr))[:size]
+
+	r := &ReaderAt{data: data}
+	if debug {
+		var p *byte
+		if len(data) != 0 {
+			p = &data[0]
+		}
+		println("mmap", r, p)
+	}
+	runtime.SetFinalizer(r, (*ReaderAt).Close)
+	return r, nil
+}
+
 // Open memory-maps the named file for reading.
 func Open(filename string) (*ReaderAt, error) {
 	f, err := os.Open(filename)
@@ -98,26 +124,5 @@ func Open(filename string) (*ReaderAt, error) {
 		return nil, fmt.Errorf("mmap: file %q is too large", filename)
 	}
 
-	low, high := uint32(size), uint32(size>>32)
-	fmap, err := syscall.CreateFileMapping(syscall.Handle(f.Fd()), nil, syscall.PAGE_READONLY, high, low, nil)
-	if err != nil {
-		return nil, err
-	}
-	defer syscall.CloseHandle(fmap)
-	ptr, err := syscall.MapViewOfFile(fmap, syscall.FILE_MAP_READ, 0, 0, uintptr(size))
-	if err != nil {
-		return nil, err
-	}
-	data := (*[1 << 30]byte)(unsafe.Pointer(ptr))[:size]
-
-	r := &ReaderAt{data: data}
-	if debug {
-		var p *byte
-		if len(data) != 0 {
-			p = &data[0]
-		}
-		println("mmap", r, p)
-	}
-	runtime.SetFinalizer(r, (*ReaderAt).Close)
-	return r, nil
+	return Map(f, 0, int(size), syscall.PROT_READ, syscall.MAP_SHARED)
 }
