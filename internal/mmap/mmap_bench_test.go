@@ -12,21 +12,21 @@ import (
 
 const (
 	smallFilename = "mmap_test.go"
-	medFilename   = "testdata/Lint.cpp" // TODO(zchee): fetch medium size(about 50000) file
-	hugeFilename  = "testdata/huge.txt" // TODO(zchee): create huge.txt use `dd`
+	// medFilename   = "testdata/Lint.cpp" // TODO(zchee): fetch medium size(about 50000) file
+	// hugeFilename  = "testdata/huge.txt" // TODO(zchee): create huge.txt use `dd`
 )
 
 var (
 	smallFilesize int64
-	medFilesize   int64
-	hugeFilesize  int64
+	// medFilesize   int64
+	// hugeFilesize  int64
 )
 
 func TestMain(m *testing.M) {
 	// for Benchmark SetBytes.
 	smallFilesize = readSize(smallFilename)
-	medFilesize = readSize(medFilename)
-	hugeFilesize = readSize(hugeFilename)
+	// medFilesize = readSize(medFilename)
+	// hugeFilesize = readSize(hugeFilename)
 
 	os.Exit(m.Run())
 }
@@ -55,7 +55,7 @@ func benchmarkRead(b *testing.B, filename string, size int64) {
 		if err != nil {
 			b.Fatal(err)
 		}
-		buf := make([]byte, 0, fi.Size())
+		buf := make([]byte, fi.Size())
 		_, err = f.Read(buf)
 		if err != nil {
 			b.Fatal(err)
@@ -77,7 +77,7 @@ func benchmarkBufioRead(b *testing.B, filename string, size int64) {
 			b.Fatal(err)
 		}
 		reader := bufio.NewReaderSize(f, int(fi.Size()))
-		buf := make([]byte, 0, fi.Size())
+		buf := make([]byte, fi.Size())
 		_, err = reader.Read(buf)
 		if err != nil {
 			b.Fatal(err)
@@ -89,9 +89,9 @@ func benchmarkBufioRead(b *testing.B, filename string, size int64) {
 func BenchmarkSmallOpen(b *testing.B)       { benchmarkOpen(b, smallFilename, smallFilesize) }
 func BenchmarkSmallRead(b *testing.B)       { benchmarkRead(b, smallFilename, smallFilesize) }
 func BenchmarkSmallBufioRead(b *testing.B)  { benchmarkBufioRead(b, smallFilename, smallFilesize) }
-func BenchmarkMediumOpen(b *testing.B)      { benchmarkOpen(b, medFilename, medFilesize) }
-func BenchmarkMediumRead(b *testing.B)      { benchmarkRead(b, medFilename, medFilesize) }
-func BenchmarkMediumBufioRead(b *testing.B) { benchmarkBufioRead(b, medFilename, medFilesize) }
-func BenchmarkHugeOpen(b *testing.B)        { benchmarkOpen(b, hugeFilename, hugeFilesize) }
-func BenchmarkHugeRead(b *testing.B)        { benchmarkRead(b, hugeFilename, hugeFilesize) }
-func BenchmarkHugeBufioRead(b *testing.B)   { benchmarkBufioRead(b, hugeFilename, hugeFilesize) }
+// func BenchmarkMediumOpen(b *testing.B)      { benchmarkOpen(b, medFilename, medFilesize) }
+// func BenchmarkMediumRead(b *testing.B)      { benchmarkRead(b, medFilename, medFilesize) }
+// func BenchmarkMediumBufioRead(b *testing.B) { benchmarkBufioRead(b, medFilename, medFilesize) }
+// func BenchmarkHugeOpen(b *testing.B)        { benchmarkOpen(b, hugeFilename, hugeFilesize) }
+// func BenchmarkHugeRead(b *testing.B)        { benchmarkRead(b, hugeFilename, hugeFilesize) }
+// func BenchmarkHugeBufioRead(b *testing.B)   { benchmarkBufioRead(b, hugeFilename, hugeFilesize) }
