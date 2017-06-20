@@ -9,6 +9,7 @@ package mmap
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 )
 
@@ -39,6 +40,15 @@ func (r *ReaderAt) At(i int) byte {
 	var b [1]byte
 	r.ReadAt(b[:], int64(i))
 	return b[0]
+}
+
+// Data returns a byte slice of r.
+func (r *ReaderAt) Data() []byte {
+	buf, err := ioutil.ReadAll()
+	if err != nil {
+		panic("could not read r.f")
+	}
+	return buf
 }
 
 // ReadAt implements the io.ReaderAt interface.
