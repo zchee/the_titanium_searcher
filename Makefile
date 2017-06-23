@@ -30,7 +30,7 @@ uninstall:
 	rm -f $(shell which $(CMD_NAME))
 
 test/run: build
-	time ./bin/ti package ..
+	time -v ./bin/ti package .. .
 
 prof:
 	rm -f *.pprof
