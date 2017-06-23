@@ -6,7 +6,12 @@
 
 package ti
 
+import (
+	"time"
+)
+
 func Debug(a ...interface{})                 {}
 func Debugf(format string, a ...interface{}) {}
 func Debugln(a ...interface{})               {}
 func Dump(a ...interface{})                  {}
+func Profile(name string, now time.Time)     {}

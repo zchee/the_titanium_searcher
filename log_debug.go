@@ -9,6 +9,7 @@ package ti
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/davecgh/go-spew/spew"
 	colorpkg "github.com/fatih/color"
@@ -33,4 +34,8 @@ func Debugln(a ...interface{}) {
 
 func Dump(a ...interface{}) {
 	log.Output(2, spew.Sdump(a...))
+}
+
+func Profile(name string, now time.Time) {
+	log.Output(2, fmt.Sprintf("%s: %fsec", name, time.Since(now).Seconds()))
 }
