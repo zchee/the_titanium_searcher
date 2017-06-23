@@ -60,11 +60,6 @@ func (r *ReaderAt) At(i int) byte {
 	return r.data[i]
 }
 
-// Data returns a byte slice of r.
-func (r *ReaderAt) Data() []byte {
-	return r.data
-}
-
 // ReadAt implements the io.ReaderAt interface.
 func (r *ReaderAt) ReadAt(p []byte, off int64) (int, error) {
 	if r.data == nil {
