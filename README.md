@@ -31,6 +31,7 @@ TODO
   - [ ] `IOS-2022-JP`
   - [ ] `EUC-JP`
   - [ ] `Shift_JIS`
+- [ ] `snapcraft.yaml`
 
 
 
