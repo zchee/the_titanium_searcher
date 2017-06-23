@@ -7,7 +7,7 @@ GO_BUILD_FLAGS ?= -v -x
 TI_DEBUG ?= 
 
 ifneq (,$(findstring debug,$(TI_DEBUG)))
-GO_BUILD_FLAGS += -tags=debug
+GO_BUILD_FLAGS += -ldflags='-X=$(PKG_NAME).debug=true'
 endif
 ifneq (,$(findstring race,$(TI_DEBUG)))
 GO_BUILD_FLAGS += -race
