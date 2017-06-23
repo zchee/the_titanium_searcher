@@ -13,8 +13,8 @@ import (
 	colorpkg "github.com/fatih/color"
 )
 
-const (
-	debug = false
+var (
+	debug string
 )
 
 func init() {
@@ -25,7 +25,7 @@ func init() {
 // Debug prints debug log.
 // Arguments are handled in the manner of fmt.Print.
 func Debug(a ...interface{}) {
-	if debug {
+	if debug != "" {
 		log.Output(2, fmt.Sprint(a...))
 	}
 }
@@ -33,7 +33,7 @@ func Debug(a ...interface{}) {
 // Debugf prints debug log.
 // Arguments are handled in the manner of fmt.Printf.
 func Debugf(format string, a ...interface{}) {
-	if debug {
+	if debug != "" {
 		log.Output(2, fmt.Sprintf(format, a...))
 	}
 }
@@ -41,7 +41,7 @@ func Debugf(format string, a ...interface{}) {
 // Debugln prints debug log.
 // Arguments are handled in the manner of fmt.Println.
 func Debugln(a ...interface{}) {
-	if debug {
+	if debug != "" {
 		log.Output(2, fmt.Sprintln(a...))
 	}
 }
@@ -49,14 +49,14 @@ func Debugln(a ...interface{}) {
 // Dump dumps a and prints debug log.
 // Arguments are handled in the manner of fmt.Print.
 func Dump(a ...interface{}) {
-	if debug {
+	if debug != "" {
 		log.Output(2, spew.Sdump(a...))
 	}
 }
 
 // Profile the end time of the function.
 func Profile(name string, now time.Time) {
-	if debug {
+	if debug != "" {
 		log.Output(2, fmt.Sprintf("%s: %fsec", name, time.Since(now).Seconds()))
 	}
 }
