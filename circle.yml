@@ -36,6 +36,6 @@ test:
     - go test -v -race -coverprofile=coverage.txt -covermode=atomic .
   post:
     - bash <(curl -s https://codecov.io/bash)
-    - gofmt -e -s -l -w $(find . -name '*.go' -and -not -iwholename '*vendor*')
+    - gofmt -e -s -l $(find . -name '*.go' -and -not -iwholename '*vendor*')
     - golint -set_exit_status $(go list ./... | grep -v -e vendor -e internal/fastwalk)
     - go vet $(go list ./... | grep -v -e vendor)
