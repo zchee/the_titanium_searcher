@@ -1,0 +1,35 @@
+version: 1.0.{build}-{branch}
+
+clone_folder: c:\gopath\src\github.com\zchee\the_titanium_searcher
+
+environment:
+  GOPATH: C:\gopath
+  GO_VERSION: 1.8.3
+  PATH: C:\go\bin;C:\gopath\bin;%PATH%;%PYTHON%;%PYTHON%\\Scripts
+
+install:
+  - rmdir c:\go /s /q
+  - appveyor DownloadFile https://storage.googleapis.com/golang/go%GO_VERSION%.windows-amd64.msi
+  - msiexec /i go%GO_VERSION%.windows-amd64.msi /q
+  - go version
+  - go env
+
+build: false
+
+before_test:
+  - go get -u github.com/golang/lint/golint
+test_script:
+  - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+  - dir
+after_test:
+  - pip install -U codecov
+  - codecov --file coverage.txt
+
+on_success:
+  - gofmt -s -l -w .
+  - golint -set_exit_status ./...
+  - go vet ./...
+
+notifications:
+  - provider: Email
+    on_build_status_changed: false
