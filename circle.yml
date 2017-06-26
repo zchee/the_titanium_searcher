@@ -33,7 +33,7 @@ dependencies:
 
 test:
   override:
-    - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+    - go test -v -race -coverprofile=coverage.txt -covermode=atomic .
   post:
     - bash <(curl -s https://codecov.io/bash)
     - test -z "$(gofmt -s -l -w . | tee /dev/stderr)"

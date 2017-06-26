@@ -19,7 +19,7 @@ build: false
 before_test:
   - go get -u github.com/golang/lint/golint
 test_script:
-  - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+  - go test -v -race -coverprofile=coverage.txt -covermode=atomic .
 after_test:
   - pip install -U codecov
   - codecov --file coverage.txt
