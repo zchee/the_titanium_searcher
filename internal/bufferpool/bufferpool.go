@@ -9,7 +9,7 @@ import (
 	"sync"
 )
 
-var g = New()
+var buffer = New()
 
 // BufferPool represents a bytes.Buffer pooling using sync.Pool.
 type BufferPool struct {
@@ -22,18 +22,18 @@ func alloc() interface{} {
 
 // New returns the new BufferPool.
 func New() *BufferPool {
-	var b BufferPool
+	b := BufferPool{}
 	b.pool.New = alloc
 	return &b
 }
 
 // Get returns the get bytes.Buffer pointer from sync.Pool.
 func (bp *BufferPool) Get() *bytes.Buffer {
-	return g.pool.Get().(*bytes.Buffer)
+	return buffer.pool.Get().(*bytes.Buffer)
 }
 
 // Put puts the bytes.Buffer pointer to sync.Pool.
 func (bp *BufferPool) Put(buf *bytes.Buffer) {
 	buf.Reset()
-	g.pool.Put(buf)
+	buffer.pool.Put(buf)
 }
