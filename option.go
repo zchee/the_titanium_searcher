@@ -4,6 +4,7 @@
 
 package ti
 
+// Option represents the_titanium_searcher option.
 type Option struct {
 	Version bool
 	Profile string
@@ -12,6 +13,7 @@ type Option struct {
 	Search SearchOption
 }
 
+// OutputOption represents the_titanium_searcher output option.
 type OutputOption struct {
 	EnableColor bool
 	Color       struct {
@@ -33,6 +35,7 @@ type OutputOption struct {
 	Encode           string
 }
 
+// SearchOption represents the_titanium_searcher search option.
 type SearchOption struct {
 	Regexp           bool
 	IgnoreCase       bool
@@ -50,6 +53,7 @@ type SearchOption struct {
 	Hidden           bool
 }
 
+// NewOption returns the Option with pointer.
 func NewOption() *Option {
 	return &Option{
 		Output: OutputOption{},
