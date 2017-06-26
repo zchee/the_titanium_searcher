@@ -29,7 +29,7 @@ after_success:
 after_script:
   - gofmt -e -s -l -w $(find . -name '*.go' -and -not -iwholename '*vendor*')
   - golint -set_exit_status $(go list ./... | grep -v -e vendor -e internal/fastwalk)
-  - go vet ./...
+  - go vet $(go list ./... | grep -v -e vendor)
 
 notifications:
   email: false
