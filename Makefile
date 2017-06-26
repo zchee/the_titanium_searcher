@@ -15,6 +15,9 @@ endif
 
 PROF_MODE ?=
 
+CRESET := \x1b[0m
+CBLUE := \x1b[34;01m
+
 build: bin/ti
 
 bin:
@@ -31,6 +34,15 @@ uninstall:
 
 test/run: build
 	gtime -v ./bin/ti package .. .
+
+lint: gofmt golint govet
+
+gofmt:
+	@echo "$(CBLUE)=>$(CRESET) gofmt -e -s -l ..." && gofmt -e -s -l $(shell find . -name '*.go' -and -not -iwholename '*vendor*')
+golint:
+	@echo "$(CBLUE)=>$(CRESET) golint ..." && golint -set_exit_status $(shell go list ./... | grep -v -e vendor -e internal/fastwalk)
+govet:
+	@echo "$(CBLUE)=>$(CRESET) go vet ..." && go vet $(shell go list ./... | grep -v -e vendor)
 
 prof:
 	rm -f *.pprof
