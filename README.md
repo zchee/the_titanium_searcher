@@ -45,7 +45,7 @@ TODO
 
 [travis-ci]: https://travis-ci.org/zchee/the_titanium_searcher
 [circleci]: https://circleci.com/gh/zchee/the_titanium_searcher
-[appveyor]: https://ci.appveyor.com/project/zchee/the_titanium_searcher
+[appveyor]: https://ci.appveyor.com/project/zchee/the-titanium-searcher
 [godoc]: https://godoc.org/github.com/zchee/the_titanium_searcher
 [codecov]: https://codecov.io/gh/zchee/the_titanium_searcher
 [ga]: https://github.com/zchee/the_titanium_searcher
