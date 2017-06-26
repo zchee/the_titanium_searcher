@@ -86,9 +86,10 @@ func benchmarkBufioRead(b *testing.B, filename string, size int64) {
 	}
 }
 
-func BenchmarkSmallOpen(b *testing.B)       { benchmarkOpen(b, smallFilename, smallFilesize) }
-func BenchmarkSmallRead(b *testing.B)       { benchmarkRead(b, smallFilename, smallFilesize) }
-func BenchmarkSmallBufioRead(b *testing.B)  { benchmarkBufioRead(b, smallFilename, smallFilesize) }
+func BenchmarkSmallOpen(b *testing.B)      { benchmarkOpen(b, smallFilename, smallFilesize) }
+func BenchmarkSmallRead(b *testing.B)      { benchmarkRead(b, smallFilename, smallFilesize) }
+func BenchmarkSmallBufioRead(b *testing.B) { benchmarkBufioRead(b, smallFilename, smallFilesize) }
+
 // func BenchmarkMediumOpen(b *testing.B)      { benchmarkOpen(b, medFilename, medFilesize) }
 // func BenchmarkMediumRead(b *testing.B)      { benchmarkRead(b, medFilename, medFilesize) }
 // func BenchmarkMediumBufioRead(b *testing.B) { benchmarkBufioRead(b, medFilename, medFilesize) }
