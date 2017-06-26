@@ -12,12 +12,19 @@ package ti
 type encodingType int
 
 const (
+	// UNKNOWN unknown encoding type.
 	UNKNOWN encodingType = iota
+	// ERROR encoding error.
 	ERROR
+	// BINARY binary encoding type.
 	BINARY
+	// ASCII ascii encoding type.
 	ASCII
+	// UTF8 utf-8 encoding type.
 	UTF8
+	// EUCJP EUC-JP encoding type.
 	EUCJP
+	// SHIFTJIS Shift JIS encoding type.
 	SHIFTJIS
 )
 
