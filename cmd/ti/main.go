@@ -9,7 +9,11 @@ import (
 	ti "github.com/zchee/the_titanium_searcher"
 )
 
-func Parse(o *ti.Option) {
+// parse parses command line flags and pass values to o.
+//
+// TODO(zchee): implements self flag parser
+// TODO(zchee): uppercase of lowercase for description
+func parse(o *ti.Option) {
 	// TODO(zchee): implements self flag parser
 	// TODO(zchee): uppercase of lowercase for description
 	pflag.BoolVarP(&o.Version, "version", "v", false, "show ti version")
