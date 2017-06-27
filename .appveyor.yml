@@ -26,9 +26,5 @@ after_test:
 
 on_success:
   - gofmt -e -s -l .
-  - golint -set_exit_status $(go list ./... | grep -v -e vendor -e internal/fastwalk)
-  - go vet $(go list ./... | grep -v -e vendor)
-
-notifications:
-  - provider: Email
-    on_build_status_changed: false
+  - dir . /b | findstr "\.go$" | golint -set_exit_status
+  - dir . /b | findstr "\.go$" | go vet
