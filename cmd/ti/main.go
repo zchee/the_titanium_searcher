@@ -11,6 +11,8 @@ import (
 	ti "github.com/zchee/the_titanium_searcher"
 )
 
+func main() {}
+
 // parse parses command line flags and pass values to o.
 //
 // TODO(zchee): implements self flag parser
