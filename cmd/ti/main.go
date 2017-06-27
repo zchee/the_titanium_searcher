@@ -6,12 +6,7 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-	"runtime"
-	"time"
 
-	"github.com/pkg/profile"
 	"github.com/spf13/pflag"
 	ti "github.com/zchee/the_titanium_searcher"
 )
