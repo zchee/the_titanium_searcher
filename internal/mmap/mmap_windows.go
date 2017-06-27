@@ -87,7 +87,7 @@ func Map(f *os.File, offset int64, length int, prot int, flags int) (*ReaderAt, 
 	if err != nil {
 		return nil, err
 	}
-	data := (*[1 << 30]byte)(unsafe.Pointer(ptr))[:size]
+	data := (*[1 << 30]byte)(unsafe.Pointer(ptr))[:length]
 
 	r := &ReaderAt{data: data}
 	if debug {
