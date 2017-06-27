@@ -39,7 +39,7 @@ func TestNew(t *testing.T) {}
 
 func TestBufferPool_Get(t *testing.T) {
 	type fields struct {
-		pool sync.Pool
+		pool *sync.Pool
 	}
 	tests := []struct {
 		name   string
@@ -71,7 +71,7 @@ func TestBufferPool_Get(t *testing.T) {
 
 func TestBufferPool_Put(t *testing.T) {
 	type fields struct {
-		pool sync.Pool
+		pool *sync.Pool
 	}
 	type args struct {
 		buf *bytes.Buffer
@@ -102,7 +102,7 @@ func TestBufferPool_Put(t *testing.T) {
 // TODO(zchee): naming
 func TestBufferPool_UnitTest(t *testing.T) {
 	type fields struct {
-		pool sync.Pool
+		pool *sync.Pool
 	}
 	tests := []struct {
 		name   string
