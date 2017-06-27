@@ -32,6 +32,9 @@ install: $(GO_SRCS)
 uninstall:
 	rm -f $(shell which $(CMD_NAME))
 
+test:
+	go test -v $(shell go list ./...)
+
 test/run: build
 	gtime -v ./bin/ti package .. .
 
@@ -40,9 +43,9 @@ lint: gofmt golint govet
 gofmt:
 	@echo "$(CBLUE)=>$(CRESET) gofmt -e -s -l ..." && gofmt -e -s -l $(shell find . -name '*.go' -and -not -iwholename '*vendor*')
 golint:
-	@echo "$(CBLUE)=>$(CRESET) golint ..." && golint -set_exit_status $(shell go list ./... | grep -v -e vendor -e internal/fastwalk)
+	@echo "$(CBLUE)=>$(CRESET) golint ..." && golint -set_exit_status $(shell go list ./... | grep -v -e internal/fastwalk)
 govet:
-	@echo "$(CBLUE)=>$(CRESET) go vet ..." && go vet $(shell go list ./... | grep -v -e vendor)
+	@echo "$(CBLUE)=>$(CRESET) go vet ..." && go vet $(shell go list ./...)
 
 prof:
 	rm -f *.pprof
