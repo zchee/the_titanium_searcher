@@ -17,14 +17,15 @@ install:
 build: false
 
 before_test:
-  - go get -u github.com/golang/lint/golint
+  - go get -u github.com/haya14busa/goverage
 test_script:
-  - go test -v -race -coverprofile=coverage.txt -covermode=atomic .
+  - goverage -v -race -coverprofile=coverage.txt -covermode=atomic ./...
 after_test:
   - pip install -U codecov
   - codecov --file coverage.txt
 
 on_success:
+  - go get -u github.com/golang/lint/golint
   - gofmt -e -s -l .
   - dir . /b | findstr "\.go$" | golint -set_exit_status
   - dir . /b | findstr "\.go$" | go vet

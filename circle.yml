@@ -25,7 +25,7 @@ dependencies:
     - env | sort
   override:
     - mkdir -p $HOMEBREW_CACHE && brew install https://github.com/Homebrew/homebrew-core/raw/master/Formula/go.rb || true
-    - go get -u github.com/golang/lint/golint
+    - go get -u github.com/haya14busa/goverage
   post:
     - go version; go env
   cache_directories:
@@ -33,9 +33,10 @@ dependencies:
 
 test:
   override:
-    - go test -v -race -coverprofile=coverage.txt -covermode=atomic .
+    - goverage -v -race -coverprofile=coverage.txt -covermode=atomic ./...
   post:
     - bash <(curl -s https://codecov.io/bash)
+    - go get -u github.com/golang/lint/golint
     - gofmt -e -s -l $(find . -name '*.go' -and -not -iwholename '*vendor*')
     - golint -set_exit_status $(go list ./... | grep -v -e vendor -e internal/fastwalk)
     - go vet $(go list ./... | grep -v -e vendor)
