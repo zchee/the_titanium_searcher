@@ -25,7 +25,7 @@ after_test:
   - codecov --file coverage.txt
 
 on_success:
-  - gofmt -e -s -l $(find . -name '*.go' -and -not -iwholename '*vendor*')
+  - gofmt -e -s -l .
   - golint -set_exit_status $(go list ./... | grep -v -e vendor -e internal/fastwalk)
   - go vet $(go list ./... | grep -v -e vendor)
 
