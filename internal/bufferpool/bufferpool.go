@@ -22,7 +22,7 @@ func alloc() interface{} {
 
 // New returns the new BufferPool.
 func New() *BufferPool {
-	b := BufferPool{}
+	b := BufferPool{pool: &sync.Pool{}}
 	b.pool.New = alloc
 	return &b
 }
