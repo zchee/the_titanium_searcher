@@ -48,12 +48,12 @@ func TestBufferPool_Get(t *testing.T) {
 	}{
 		{
 			name:   "new",
-			fields: fields{pool: sync.Pool{New: alloc}},
+			fields: fields{pool: &sync.Pool{New: alloc}},
 			want:   new(bytes.Buffer),
 		},
 		{
 			name:   "reference",
-			fields: fields{pool: sync.Pool{New: alloc}},
+			fields: fields{pool: &sync.Pool{New: alloc}},
 			want:   &bytes.Buffer{},
 		},
 	}
@@ -84,7 +84,7 @@ func TestBufferPool_Put(t *testing.T) {
 		{
 			name: "test",
 			fields: fields{
-				pool: sync.Pool{New: alloc},
+				pool: &sync.Pool{New: alloc},
 			},
 			args: args{buf: new(bytes.Buffer)},
 		},
@@ -112,7 +112,7 @@ func TestBufferPool_UnitTest(t *testing.T) {
 		{
 			name: "test",
 			fields: fields{
-				pool: sync.Pool{New: alloc},
+				pool: &sync.Pool{New: alloc},
 			},
 			want: true,
 		},
