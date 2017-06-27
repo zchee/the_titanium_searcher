@@ -124,5 +124,5 @@ func Open(filename string) (*ReaderAt, error) {
 		return nil, fmt.Errorf("mmap: file %q is too large", filename)
 	}
 
-	return Map(f, 0, int(size), syscall.PROT_READ, syscall.MAP_SHARED)
+	return Map(f, 0, int(size), 0, 0)
 }
