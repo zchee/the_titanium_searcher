@@ -13,7 +13,7 @@ var buffer = New()
 
 // BufferPool represents a bytes.Buffer pooling using sync.Pool.
 type BufferPool struct {
-	pool sync.Pool
+	pool *sync.Pool
 }
 
 func alloc() interface{} {
