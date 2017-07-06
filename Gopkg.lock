@@ -41,13 +41,13 @@
   branch = "master"
   name = "github.com/zchee/go-xdgbasedir"
   packages = [".","home"]
-  revision = "9e3b9735d059747e24923def768d235d9df86b21"
+  revision = "0ecb8d9ebf325f0c0a527f8ff09a3ed44f05d2c5"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "c23410a886927bab8ca5e80b08af6a56faeb330d"
+  revision = "6faef541c73732f438fb660a212750a9ba9f9362"
 
 [solve-meta]
   analyzer-name = "dep"
